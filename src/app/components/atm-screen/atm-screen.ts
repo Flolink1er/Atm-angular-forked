@@ -15,13 +15,16 @@ import { CUSTOMERS } from '../../models/data/customers.mock';
 })
 export class AtmScreen {
   public readonly AtmSteps = AtmSteps;
-  public currentStep = AtmSteps.SELECT_ACTION;
-  public currentCard?: Card = CUSTOMERS[0].cards[0];
+  public currentStep = AtmSteps.MACHINE_HOME;
+  public currentCard?: Card;
   public error_msg?: string;
-  public currentAction?: string;
 
   public nextStep(nextStep : AtmSteps): void {
     this.currentStep = nextStep;
+
+    if (nextStep === AtmSteps.MACHINE_HOME){
+      this.currentCard = undefined;
+    }
   }
 
   public pickCard(card : Card): void{
@@ -35,14 +38,6 @@ export class AtmScreen {
       this.nextStep(AtmSteps.SELECT_ACTION);
     }else{
       this.error_msg = "Mauvais code PIN !";
-    }
-  }
-
-  public doAction(action: string): void{
-    if (action === 'toHome'){
-      this.nextStep(AtmSteps.MACHINE_HOME);
-    }else{
-      this.currentAction = action;
     }
   }
 }

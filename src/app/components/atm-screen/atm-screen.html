@@ -14,6 +14,6 @@
 }
 }
 @case (AtmSteps.SELECT_ACTION){
-<app-select-action [selectedCard]="currentCard!"></app-select-action>
+<app-select-action [selectedCard]="currentCard!" (action)="nextStep(AtmSteps.MACHINE_HOME)"></app-select-action>
 }
 }

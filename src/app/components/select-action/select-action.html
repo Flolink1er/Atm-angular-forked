@@ -77,4 +77,31 @@
   </mat-expansion-panel>
 
 
+  <!-- changement PIN -->
+  <mat-expansion-panel [expanded]="panelStep() === 3" (opened)="setStep(3)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>edit</mat-icon> Changer le code PIN </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="changePIN">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Nouveau code PIN</mat-label>
+        <input matInput formControlName="newPin" type="text" maxlength="4" placeholder="1234">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Confirmer le code PIN</mat-label>
+        <input matInput formControlName="confirmator" type="text" maxlength="4" placeholder="1234">
+        <button type="submit" [disabled]="changePIN.invalid" matButton matSuffix
+          (click)="handleNewPin()"><mat-icon>check</mat-icon></button>
+        @if (changePIN.get('confirmator')?.hasError('matching')){
+        <mat-error>Veuillez entrez le même code<strong> PIN</strong></mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-expansion-panel>
+
+
+  <button class="exit" matButton="filled" (click)="exit()">Quitter</button>
+
 </mat-accordion>

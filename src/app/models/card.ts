@@ -43,6 +43,10 @@ export class Card {
     return this._balance;
   }
 
+  public set pin(newPin: string){
+    this._pin = newPin;
+  }
+
   public checkPin(pin: string): boolean{
     return this._pin === pin;
   }
@@ -66,6 +70,5 @@ export class Card {
       throw new Error('Le montant retrait doit être positif');
     }
   }
-
 
 }

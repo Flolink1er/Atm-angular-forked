@@ -16,6 +16,23 @@ export function isMultiple(num: number): ValidatorFn {
   }
 }
 
+export function matchValidator(matchTo: string, reverse?: boolean): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const parent = control.parent;
+
+    if (!parent) return null;
+    const matchControl = parent.get(matchTo);
+
+    if (reverse) {
+      matchControl?.updateValueAndValidity();
+      return null;
+    }
+
+    return control.value === matchControl?.value ? null : { matching: true };
+  };
+}
+
+
 @Component({
   selector: 'app-select-action',
   imports: [MatButtonModule, MatIconModule, MatExpansionModule, CurrencyPipe, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule],
@@ -24,12 +41,16 @@ export function isMultiple(num: number): ValidatorFn {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectAction {
-  public action = output<string>();
+  public action = output<void>();
   public readonly selectedCard = input.required<Card>();
   public accordion = viewChild.required(MatAccordion);
   public panelStep = signal(0);
   public readonly withdrawal = new FormControl(null, [Validators.required, Validators.min(5), isMultiple(5)]);
   public readonly deposit = new FormControl(null, [Validators.required, Validators.min(5), isMultiple(5)]);
+  public readonly changePIN = new FormGroup({
+    newPin : new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4), matchValidator('confirmator', true)]),
+    confirmator: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4), matchValidator('newPin')]),
+  })
   private _snackBar = inject(MatSnackBar);
   private withdrawMaxValidationRef? : ValidatorFn
 
@@ -53,6 +74,12 @@ export class SelectAction {
     this.updateValidatorMax();
   }
 
+  public handleNewPin(): void{
+    this.selectedCard().pin = this.changePIN.value.newPin!;
+    this.changePIN.reset();
+    this._snackBar.open('Le code pin a bien été changé !', '', {verticalPosition: 'top', duration: 2000})
+  }
+
   private updateValidatorMax(): void{
     if(this.withdrawMaxValidationRef){
       this.withdrawal.removeValidators(this.withdrawMaxValidationRef);
@@ -62,8 +89,12 @@ export class SelectAction {
     this.withdrawal.updateValueAndValidity();
   }
 
-  setStep(index: number) {
+  public setStep(index: number) {
     this.panelStep.set(index);
+  }
+
+  public exit(): void{
+    this.action.emit();
   }
 
 }
