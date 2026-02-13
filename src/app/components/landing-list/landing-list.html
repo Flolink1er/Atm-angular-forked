@@ -1,14 +1,13 @@
-<mat-form-field>
-  <mat-label>Rechercher</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="John Doe" #input>
-</mat-form-field>
-
 <div class="btn-box">
   <button matButton="filled"><mat-icon>person_add</mat-icon>Créer un client</button>
   <button matButton="filled"><mat-icon>add_box</mat-icon>Créer une carte</button>
 </div>
 
 <div class="mat-elevation-z8">
+  <mat-form-field>
+    <mat-label>Rechercher</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="John Doe" #input>
+  </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Firstname -->
