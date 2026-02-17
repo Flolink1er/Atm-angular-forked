@@ -109,9 +109,9 @@ export class SelectAction {
               return customer;
             });
 
-    const customerIndex = customers.findIndex((customer: any) => customer.cards.some((card: any) => card.cardNumber === this.selectedCard().cardNumber));
+    const customerIndex = customers.findIndex((customer: Customer) => customer.cards.some((card: Card) => card.cardNumber === this.selectedCard().cardNumber));
     if (customerIndex !== -1) {
-      const cardIndex = customers[customerIndex].cards.findIndex((card: any) => card.cardNumber === this.selectedCard().cardNumber);
+      const cardIndex = customers[customerIndex].cards.findIndex((card: Card) => card.cardNumber === this.selectedCard().cardNumber);
       customers[customerIndex].cards[cardIndex] = this.selectedCard();
       localStorage.setItem('customerList', JSON.stringify(customers));
     }
