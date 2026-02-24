@@ -2,7 +2,12 @@
 
 @for (customer of customers; track customer.fullname){
 <p>{{customer.fullname}}</p>
-
+@if (customer.cards.length === 0) {
+<div class="card-box">
+  <p>Aucune carte associée à ce client.</p>
+</div>
+}
+@else {
 @for(card of customer.cards; track card.cardNumber){
 <div class="card-box">
 
@@ -24,7 +29,4 @@
 </div>
 }
 }
-
-<div class="action-footer">
-  <button matButton="filled" (click)="nextStep()">I choose you !</button>
-</div>
+}

@@ -38,10 +38,6 @@ export class SelectCard {
       });
   }
 
-  public nextStep() {
-    this.change.emit();
-  }
-
   public chooseCard(card : Card): void{
     this.cardPicked.emit(card);
   }
