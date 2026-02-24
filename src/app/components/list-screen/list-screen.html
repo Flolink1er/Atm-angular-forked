@@ -1,0 +1,11 @@
+@switch (currentStep) {
+@case (ListSteps.LIST_HOME){
+<app-landing-list (changeStep)="changeStep($event)" />
+}
+@case (ListSteps.CREATE_USER){
+<app-create-user (user)="createCust($event)" />
+}
+@case (ListSteps.CREATE_CARD){
+<app-create-card (card)="createCard($event)" />
+}
+}

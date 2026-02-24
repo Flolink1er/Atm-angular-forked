@@ -1,0 +1,5 @@
+export enum ListSteps{
+  LIST_HOME = 'LIST_HOME',
+  CREATE_USER = 'CREATE_USER',
+  CREATE_CARD = 'CREATE_CARD',
+}

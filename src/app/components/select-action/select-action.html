@@ -1,0 +1,97 @@
+<!-- solde -->
+<h3>Carte : {{selectedCard().cardNumber}} </h3>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel [expanded]="panelStep() === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>euro</mat-icon> Solde </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <h3>{{selectedCard().cardBalance | currency : 'EUR' }}</h3>
+  </mat-expansion-panel>
+
+
+  <!-- retrait -->
+  <mat-expansion-panel [expanded]="panelStep() === 1" (opened)="setStep(1)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>arrow_downward_alt</mat-icon> Retrait </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="outline" class="example-full-width form-field">
+      <mat-label>Montant du retrait</mat-label>
+      <input matInput [formControl]="withdrawal" type="number" step="5" placeholder="50">
+      <button (click)="handleWithdrawal()" matButton matSuffix
+        [disabled]="withdrawal.invalid"><mat-icon>check</mat-icon></button>
+      @if (withdrawal.hasError('min')){
+      <mat-error>Attention le montant minimum est de <strong>{{5 | currency : 'EUR'}}</strong></mat-error>
+      }
+      @else if (withdrawal.hasError('required')) {
+      <mat-error>Un montant est <strong>requis</strong> pour continuer</mat-error>
+      }
+      @else if (withdrawal.hasError('max')) {
+      <mat-error>Attention, le montant <strong>maximum</strong> est de {{selectedCard().cardBalance | currency :
+        'EUR'}}</mat-error>
+      }
+      @else if (withdrawal.hasError('isMultiple')) {
+      <mat-error>Attention, le montant doit être un multiple de <strong>5</strong></mat-error>
+      }
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <!-- dépot -->
+  <mat-expansion-panel [expanded]="panelStep() === 2" (opened)="setStep(2)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>arrow_upward_alt</mat-icon> Dépôt </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Montant du dépôt</mat-label>
+      <input matInput [formControl]="deposit" type="number" step="5" placeholder="50">
+      <button type="submit" [disabled]="deposit.invalid" matButton matSuffix
+        (click)="handleDeposit()"><mat-icon>check</mat-icon></button>
+      @if (deposit.hasError('min')){
+      <mat-error>Attention le montant minimum est de <strong>{{5 | currency : 'EUR'}}</strong></mat-error>
+      }
+      @else if (deposit.hasError('required')) {
+      <mat-error>Un montant est <strong>requis</strong> pour continuer</mat-error>
+      }
+      @else if (withdrawal.hasError('isMultiple')) {
+      <mat-error>Attention, le montant doit être un multiple de <strong>5</strong></mat-error>
+      }
+    </mat-form-field>
+  </mat-expansion-panel>
+
+
+  <!-- changement PIN -->
+  <mat-expansion-panel [expanded]="panelStep() === 3" (opened)="setStep(3)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>edit</mat-icon> Changer le code PIN </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="changePIN">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Nouveau code PIN</mat-label>
+        <input matInput formControlName="newPin" type="text" maxlength="4" placeholder="1234">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Confirmer le code PIN</mat-label>
+        <input matInput formControlName="confirmator" type="text" maxlength="4" placeholder="1234">
+        <button type="submit" [disabled]="changePIN.invalid" matButton matSuffix
+          (click)="handleNewPin()"><mat-icon>check</mat-icon></button>
+        @if (changePIN.get('confirmator')?.hasError('matching')){
+        <mat-error>Veuillez entrez le même code<strong> PIN</strong></mat-error>
+        }
+        @else if (changePIN.get('confirmator')?.hasError('pattern')){
+        <mat-error>Votre code PIN de dois contenir que des<strong> chiffres</strong></mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-expansion-panel>
+
+
+  <button class="exit" matButton="filled" (click)="exit()">Quitter</button>
+
+</mat-accordion>

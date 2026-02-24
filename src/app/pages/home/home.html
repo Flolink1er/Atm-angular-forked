@@ -1,0 +1,50 @@
+<section class="home">
+  <h1>Bienvenue !</h1>
+
+
+  <div class="home-container">
+    <mat-card class="example-card home-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>ATM</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>Vous pouvez effectuer des opérations bancaires sur cet ATM.</p>
+      </mat-card-content>
+
+      <mat-card-footer class="example-card-footer">
+        <mat-chip-set aria-label="ATM services">
+          <mat-chip>Retraits</mat-chip>
+          <mat-chip>Dépôts</mat-chip>
+          <mat-chip>Consultation de solde</mat-chip>
+          <mat-chip>Changement de code PIN</mat-chip>
+        </mat-chip-set>
+      </mat-card-footer>
+
+      <mat-card-actions align="end">
+        <button matButton="filled" routerLink="atm">Accéder à l'ATM</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="example-card home-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Gestion Clients/Cartes</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>Gestion des clients et des cartes bancaires.</p>
+      </mat-card-content>
+
+      <mat-card-footer class="example-card-footer">
+        <mat-chip-set aria-label="Chihuahua traits">
+          <mat-chip>Ajout de clients</mat-chip>
+          <mat-chip>Ajout de cartes</mat-chip>
+        </mat-chip-set>
+      </mat-card-footer>
+
+      <mat-card-actions align="end">
+        <button matButton="filled" routerLink="card-list">Accéder à la Gestion Clients/Cartes</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

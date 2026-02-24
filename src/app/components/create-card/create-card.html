@@ -1,0 +1,58 @@
+<div class="container">
+  <h3>Créer une nouvelle carte</h3>
+  <form [formGroup]="newCardForm" class="cardForm">
+    <mat-form-field appearance="fill" class="example-full-width" control>
+      <mat-label>Client propriétaire</mat-label>
+      <mat-select formControlName="cardCustomer">
+        @for (customer of customersList; track customer.fullname) {
+        <mat-option [value]="customer">{{ customer.fullname }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Numéro de carte</mat-label>
+      <input matInput formControlName="cardNumber" type="text" inputmode="numeric"
+        placeholder="1234 5678 1234 5678 ou 1234567812345678" pattern="[0-9 ]*">
+      @if (newCardForm.get('cardNumber')?.hasError('pattern')){
+      <mat-error>Veuillez entrez un numéro de carte valide</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Code PIN</mat-label>
+      <input matInput formControlName="cardPin" type="text" placeholder="1234">
+      @if (newCardForm.get('cardPin')?.hasError('pattern')){
+      <mat-error>Veuillez entrez un code PIN valide</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Confirmer code PIN</mat-label>
+      <input matInput formControlName="cardPinConfirm" type="text">
+      @if (newCardForm.get('cardPinConfirm')?.hasError('pattern')){
+      <mat-error>Veuillez entrez un code PIN valide</mat-error>
+      }
+      @else if (newCardForm.get('cardPinConfirm')?.hasError('matching')){
+      <mat-error>Veuillez faire attention à confirmer le même code PIN que ci dessus</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="cardType">
+        <mat-option value={{cardType.MASTERCARD}}>Mastercard</mat-option>
+        <mat-option value={{cardType.VISA}}>Visa</mat-option>
+        <mat-option value={{cardType.OTHER}}>Autre</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Banque</mat-label>
+      <mat-select formControlName="cardBank">
+        <mat-option value={{bankType.BELFIUS}}>Belfius</mat-option>
+        <mat-option value={{bankType.ING}}>ING</mat-option>
+        <mat-option value={{bankType.REVOLUT}}>Autre</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button matButton="filled" [disabled]="newCardForm.invalid" (click)="create()">Créer</button>
+    @if (newCardForm.hasError('required')) {
+    <mat-error>Veuillez remplir <strong>tous</strong> les champs pour continuer</mat-error>
+    }
+  </form>
+</div>

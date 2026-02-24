@@ -1,0 +1,32 @@
+<h3>Veuillez selectionner une carte</h3>
+
+@for (customer of customers; track customer.fullname){
+<p>{{customer.fullname}}</p>
+@if (customer.cards.length === 0) {
+<div class="card-box">
+  <p>Aucune carte associée à ce client.</p>
+</div>
+}
+@else {
+@for(card of customer.cards; track card.cardNumber){
+<div class="card-box">
+
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{card.cardBank}}</mat-card-title>
+      <mat-card-subtitle>{{card.cardType}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{card.cardNumber}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matButton="outlined" (click)="chooseCard(card)">Choisir</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+}
+}
+}

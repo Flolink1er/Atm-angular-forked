@@ -1,0 +1,21 @@
+.btn-box {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mat-elevation-z8 {
+  margin-top: 20px;
+  width: 90%;
+}
+
+.mat-elevation-z8 table,
+.mat-elevation-z8 mat-form-field,
+.mat-elevation-z8 mat-paginator {
+  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+}

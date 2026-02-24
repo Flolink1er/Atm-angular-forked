@@ -1,0 +1,19 @@
+@switch (currentStep) {
+@case (AtmSteps.MACHINE_HOME){
+<app-landing-atm (change)="nextStep(AtmSteps.SELECT_CARD)" />
+}
+@case (AtmSteps.SELECT_CARD){
+<app-select-card (cardPicked)="pickCard($event)"></app-select-card>
+}
+@case (AtmSteps.PIN_CHECK){
+<app-pin-pad (checkPin)="checkPin($event)"></app-pin-pad>
+@if (error_msg !== ""){
+<div class="error-box">
+  <em class="error-msg">{{error_msg}}</em>
+</div>
+}
+}
+@case (AtmSteps.SELECT_ACTION){
+<app-select-action [selectedCard]="currentCard!" (action)="nextStep(AtmSteps.MACHINE_HOME)"></app-select-action>
+}
+}
