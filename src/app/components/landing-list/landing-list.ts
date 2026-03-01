@@ -26,6 +26,7 @@ export class LandingList {
   public dataSource!: MatTableDataSource<Customer>;
   public changeStep = output<ListSteps>();
   public customerList ?: Customer[];
+  public updateCustomerList = output<Customer[]>();
   public openedPanels = signal<Record<string, number | null>>({});
 
 
@@ -93,5 +94,18 @@ export class LandingList {
 
   public createCard(){
     this.changeStep.emit(ListSteps.CREATE_CARD);
+  }
+
+  public card_del(card: Card, customer: Customer): void{
+    const target = this.customerList?.find(c => c.fullname === customer.fullname);
+
+    if (target) {
+      target.delete_card(card);
+    }
+
+    this.customerList = [...this.customerList!];
+    this.dataSource.data = this.customerList;
+
+    this.updateCustomerList.emit(this.customerList!);
   }
 }

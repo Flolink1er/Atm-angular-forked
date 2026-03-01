@@ -46,4 +46,8 @@ export class Customer{
   public formatCards(cards: Card[]): void{
     this._cards = cards;
   }
+
+  public delete_card(card: Card): void{
+    this._cards = this._cards.filter((el) => {el === card});
+  }
 }

@@ -42,9 +42,8 @@ export class ListScreen {
   }
 
   public createCust(newUser: Customer): void{
-    var customerList : Customer[];
     if (!localStorage.getItem('customerList')){
-      customerList = [newUser];
+      this.customerList = [newUser];
     }else{
       let raw = JSON.parse(localStorage.getItem('customerList')!)
       this.customerList = raw.map(Customer.fromJson);
@@ -66,5 +65,10 @@ export class ListScreen {
     localStorage.setItem('customerList', JSON.stringify(this.customerList));
     this.changeStep(ListSteps.LIST_HOME);
 
+  }
+
+  public updateCustomers(customers: Customer[]): void{
+    this.customerList = customers;
+    localStorage.setItem('customerList', JSON.stringify(this.customerList));
   }
 }

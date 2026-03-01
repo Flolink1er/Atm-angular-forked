@@ -41,7 +41,13 @@
               <p><strong>Type :</strong> {{ card.cardType }}</p>
             </div>
 
+            <div class="del-btn">
+              <button matButton="filled" (click)="card_del(card, customer)">Supprimer cette carte</button>
+            </div>
+
           </mat-expansion-panel>
+
+
 
           }
 

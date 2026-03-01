@@ -47,7 +47,7 @@
       <mat-select formControlName="cardBank">
         <mat-option value={{bankType.BELFIUS}}>Belfius</mat-option>
         <mat-option value={{bankType.ING}}>ING</mat-option>
-        <mat-option value={{bankType.REVOLUT}}>Autre</mat-option>
+        <mat-option value={{bankType.REVOLUT}}>Revolut</mat-option>
       </mat-select>
     </mat-form-field>
     <button matButton="filled" [disabled]="newCardForm.invalid" (click)="create()">Créer</button>

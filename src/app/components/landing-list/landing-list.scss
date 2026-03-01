@@ -19,3 +19,7 @@
   margin-left: 5%;
   margin-right: 5%;
 }
+
+.del-btn>button {
+  background-color: var(--mat-sys-error);
+}
