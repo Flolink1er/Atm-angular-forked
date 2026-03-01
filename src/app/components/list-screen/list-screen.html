@@ -1,6 +1,7 @@
 @switch (currentStep) {
 @case (ListSteps.LIST_HOME){
-<app-landing-list (changeStep)="changeStep($event)" (updateCustomerList)="updateCustomers($event)" />
+<app-landing-list (changeStep)="changeStep($event)" [customerList]="customerList || []"
+  (updateCustomerList)="updateCustomers($event)" />
 }
 @case (ListSteps.CREATE_USER){
 <app-create-user (user)="createCust($event)" />

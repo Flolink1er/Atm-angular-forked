@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, output, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, output, signal, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -25,7 +25,7 @@ export class LandingList {
   public readonly displayedColumns: string[] = ['clients', 'cards'];
   public dataSource!: MatTableDataSource<Customer>;
   public changeStep = output<ListSteps>();
-  public customerList ?: Customer[];
+  public customerList = input<Customer[]>([]);
   public updateCustomerList = output<Customer[]>();
   public openedPanels = signal<Record<string, number | null>>({});
 
@@ -33,53 +33,29 @@ export class LandingList {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(){
-    /*créer déjà des clients ainsi que leurs cartes
-    const cust1: Customer = new Customer('Jean', 'Passe', Gender.HOMME, new Date('12-10-1976'), 'Rue de la loi 109', []);
-    const cust2: Customer = new Customer('Sarah', 'Compagne', Gender.FEMME, new Date('30-05-1988'), 'Boulevard du lion 304', []);
-    const cust3: Customer = new Customer('Truc', 'Muche', Gender.AUTRE, new Date('14-07-1990'), 'Rue du pré 12', []);
-
-    const customers: Customer[] = [cust1, cust2, cust3];
-    this.dataSource = new MatTableDataSource(customers);
-    */
-
-    effect(() =>{
-      var customers: Customer[];
-      if (localStorage.getItem('customerList') !== null){
-        let raw = JSON.parse(localStorage.getItem('customerList')!)
-        customers = raw.map((data: Customer) => {
-          const customer = Customer.fromJson(data);
-          customer.formatCards(customer.cards.map(Card.fromJson));
-          return customer;
-        });
 
 
-      }else{
-        customers= [];
-      }
-
-      this.customerList = customers;
-      this.dataSource = new MatTableDataSource(customers);
-      });
+  public ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource(this.customerList());
   }
 
-  public setOpenedIndex(fullname: string, index: number) {
+  public setOpenedIndex(fullname: string, index: number): void {
     this.openedPanels.update(state => ({
     ...state,
     [fullname]: index
     }));
   }
 
-  public isOpened(fullname: string, index: number) {
+  public isOpened(fullname: string, index: number): boolean {
     return this.openedPanels()[fullname] === index;
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  public applyFilter(event: Event) {
+  public applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -88,24 +64,31 @@ export class LandingList {
     }
   }
 
-  public createUser(){
+  public createUser(): void{
     this.changeStep.emit(ListSteps.CREATE_USER);
   }
 
-  public createCard(){
+  public createCard(): void{
     this.changeStep.emit(ListSteps.CREATE_CARD);
   }
 
-  public card_del(card: Card, customer: Customer): void{
-    const target = this.customerList?.find(c => c.fullname === customer.fullname);
+  public card_del(card: Card, customer: Customer): void {
 
-    if (target) {
-      target.delete_card(card);
-    }
+  const updated = this.customerList()!.map(c => {
 
-    this.customerList = [...this.customerList!];
-    this.dataSource.data = this.customerList;
+    if (c.fullname !== customer.fullname) return c;
 
-    this.updateCustomerList.emit(this.customerList!);
-  }
+    return new Customer(
+      c['_firstName'],
+      c['_lastName'],
+      c['_gender'],
+      c['_birthDate'],
+      c['_address'],
+      c.cards.filter(el => el.cardNumber !== card.cardNumber)
+    );
+  });
+
+  this.dataSource.data = this.customerList();
+  this.updateCustomerList.emit(updated);
+}
 }

@@ -54,7 +54,7 @@ export class ListScreen {
     this.changeStep(ListSteps.LIST_HOME);
   }
 
-  public createCard(newCard: {card : Card, customer : Customer}){
+  public createCard(newCard: {card : Card, customer : Customer}): void{
     const customerTarget : Customer = newCard['customer'];
     const cardTarget : Card = newCard['card'];
     for (const cust of this.customerList!){
