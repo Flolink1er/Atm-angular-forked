@@ -3,7 +3,7 @@
 @for (customer of customers; track customer.fullname){
 <p>{{customer.fullname}}</p>
 @if (customer.cards.length === 0) {
-<div class="card-box">
+<div class="card-box empty-card">
   <p>Aucune carte associée à ce client.</p>
 </div>
 }
@@ -13,7 +13,9 @@
 
   <mat-card appearance="outlined">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar class="example-header-image logo"><img src="/{{card.cardBank}}.svg"
+          alt="{{card.cardBank}} logo">
+      </div>
       <mat-card-title>{{card.cardBank}}</mat-card-title>
       <mat-card-subtitle>{{card.cardType}}</mat-card-subtitle>
     </mat-card-header>

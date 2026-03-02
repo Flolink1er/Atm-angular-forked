@@ -1,9 +1,14 @@
 :host {
-  margin: 3rem 12rem;
   border: 1px solid black;
   border-radius: 1rem;
   display: block;
   padding: 3rem;
+  width: 35%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4rem;
+  margin-bottom: 2rem;
 
   .error-box {
     display: flex;
