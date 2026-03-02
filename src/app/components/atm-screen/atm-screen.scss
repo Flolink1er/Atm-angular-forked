@@ -9,6 +9,8 @@
   transform: translateX(-50%);
   margin-top: 4rem;
   margin-bottom: 2rem;
+  backdrop-filter: blur(6px);
+  background: var(--dark-bg-color);
 
   .error-box {
     display: flex;
@@ -16,6 +18,7 @@
   }
 
   .error-msg {
+    padding-top: 20px;
     color: var(--mat-sys-error);
   }
 }

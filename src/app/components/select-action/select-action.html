@@ -1,6 +1,6 @@
-<!-- solde -->
 <h3>Carte : {{selectedCard().cardNumber}} </h3>
 <mat-accordion class="example-headers-align" multi>
+  <!-- solde -->
   <mat-expansion-panel [expanded]="panelStep() === 0" (opened)="setStep(0)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -57,7 +57,7 @@
       @else if (deposit.hasError('required')) {
       <mat-error>Un montant est <strong>requis</strong> pour continuer</mat-error>
       }
-      @else if (withdrawal.hasError('isMultiple')) {
+      @else if (deposit.hasError('isMultiple')) {
       <mat-error>Attention, le montant doit être un multiple de <strong>5</strong></mat-error>
       }
     </mat-form-field>
@@ -92,6 +92,6 @@
   </mat-expansion-panel>
 
 
-  <button class="exit" matButton="filled" (click)="exit()">Quitter</button>
+  <button class="exit" matButton="filled" class="button-primary-style" (click)="exit()">Quitter</button>
 
 </mat-accordion>

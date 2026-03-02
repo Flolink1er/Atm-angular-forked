@@ -1,25 +1,192 @@
+.list-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 .btn-box {
-  margin-top: 50px;
-  margin-bottom: 20px;
-  width: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
-.mat-elevation-z8 {
-  margin-top: 20px;
-  width: 90%;
-}
 
-.mat-elevation-z8 table,
-.mat-elevation-z8 mat-form-field,
-.mat-elevation-z8 mat-paginator {
+
+// SEARCH FIELD
+
+mat-form-field {
   width: 100%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-bottom: 20px;
+
+  .mdc-text-field {
+    background: var(--primary-panel-bg-color);
+    border-radius: 12px;
+  }
 }
 
-.del-btn>button {
-  background-color: var(--mat-sys-error);
+
+// TABLE STYLE
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mat-mdc-table {
+  background: transparent !important;
+}
+
+.mat-mdc-header-row {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+th.mat-mdc-header-cell {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  font-size: 0.9rem;
+
+
+  border-bottom: 1px solid var(--primary-border-color);
+}
+
+tr.mat-mdc-row {
+  transition: background 180ms ease;
+}
+
+tr.mat-mdc-row:hover {
+  background: var(--primary-row-hover-bg-color);
+}
+
+.mat-mdc-row {
+  border-bottom: 1px solid var(--primary-border-color);
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  padding: 12px 8px;
+}
+
+tr.mat-row {
+  transition: background 200ms ease;
+}
+
+tr.mat-row:hover {
+  background: var(--primary-row-hover-bg-color);
+}
+
+
+/* Divider lines */
+.mat-row,
+.mat-header-row {
+  border-bottom: 1px solid var(--primary-border-color);
+}
+
+
+// INNER ACCORDION (CARDS COLUMN)
+
+mat-accordion {
+  background: transparent;
+  width: 100%;
+}
+
+.mat-expansion-panel {
+  background: var(--primary-panel-bg-color);
+  box-shadow: none;
+  border: 1px solid var(--primary-border-color);
+
+  border-radius: 10px !important;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  transition:
+    background 250ms ease,
+    box-shadow 250ms ease,
+    transform 200ms ease;
+
+}
+
+.mat-expansion-panel.mat-expanded {
+  background: var(--primary-panel-expended-bg-color);
+  transform: none;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(100, 180, 255, 0.15),
+    0 0 20px rgba(100, 180, 255, 0.08);
+}
+
+
+// PANEL HEADER
+
+.mat-expansion-panel-header {
+  padding: 14px 16px;
+  position: relative;
+
+  mat-icon {
+    font-size: 18px;
+    opacity: 0.8;
+  }
+}
+
+/* Center grow separator line */
+.mat-expansion-panel-header::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+
+  width: 90%;
+  height: 2px;
+
+  background: var(--primary-line-color);
+
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.mat-expansion-panel.mat-expanded .mat-expansion-panel-header::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+
+// CARD DETAILS
+
+.card-infos {
+  padding: 10px 0 0 10px;
+
+  p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+}
+
+.del-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  color: var(--mdc-filled-button-label-text-color) !important;
+}
+
+td.mat-cell {
+  padding-right: 0;
+}
+
+
+
+// PAGINATOR
+
+mat-paginator {
+  margin-top: 20px;
+  border-radius: 12px;
+
+  background: var(--dark-bg-color);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }

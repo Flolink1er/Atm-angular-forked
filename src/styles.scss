@@ -1,14 +1,65 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+
+@font-face {
+  font-family: 'Satoshi-Variable';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2'),
+    url('/fonts/Satoshi-Variable.woff') format('woff'),
+    url('/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/DMSans-9ptRegular.woff2') format('woff2'),
+    url('/fonts/DMSans-9ptRegular.woff') format('woff'),
+    url('/fonts/DMSans-9ptRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --primary-bg-color: radial-gradient(circle at top left,
+      #0f1c2e,
+      #07111f 60%);
+  --dark-bg-color: rgba(0, 0, 0, 0.7);
+
+  --primary-wrapper-border-color: rgba(255, 255, 255, 0.05);
+  --primary-wrapper-bg-color: rgba(15, 25, 40, 0.75);
+  --primary-wrapper-shadow-color: rgba(0, 0, 0, 0.45);
+  --secondary-wrapper-bg-color: radial-gradient(circle,
+      rgba(100, 180, 255, 0.06),
+      transparent 70%);
+
+  --primary-btn-bg-color: linear-gradient(135deg,
+      #1ecad3,
+      #17a6b2);
+  --primary-btn-shadow-color: rgba(30, 202, 211, 0.25);
+  --primary-btn-hover-shadow-color: rgba(30, 202, 211, 0.35);
+
+  --primary-btn-delete-bg-color: linear-gradient(135deg,
+      #761010,
+      #8d230e);
+  --primary-btn-delete-shadow-color: rgba(255, 107, 107, 0.25);
+  --primary-btn-delete-hover-shadow-color: rgba(255, 107, 107, 0.35);
+
+  --primary-panel-bg-color: rgba(20, 35, 55, 0.7);
+  --primary-panel-expended-bg-color: rgba(30, 50, 80, 0.85);
+  --primary-line-color: linear-gradient(90deg,
+      rgba(100, 255, 113, 0.8),
+      rgba(100, 255, 110, 0.4));
+
+  --mat-sys-body-medium-font: 400 1rem/1.5 'DM Sans', sans-serif;
+}
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
+  height: fit-content;
   margin: 0;
+  font-family: 'DM Sans', sans-serif !important;
 }
 
 html {
@@ -16,42 +67,187 @@ html {
   @include mat.theme((color: (primary: mat.$cyan-palette,
         tertiary: mat.$violet-palette,
       ),
-      typography: Roboto,
+      typography: 'DM Sans',
       density: 0,
     ));
+}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Satoshi-Variable', sans-serif !important;
+  color: var(--mat-sys-on-surface);
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
+  padding-top: 80px;
   color-scheme: light dark;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
+  overflow-x: hidden;
+  background: var(--primary-bg-color) !important;
+  height: 100%;
 }
 
-app-root {
-  min-height: 100vh;
-  max-height: fit-content;
-  display: block;
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: calc(-75%);
 
-  background: radial-gradient(circle at top left,
-      #0f1c2e,
-      #07111f 60%);
+  background: url("/bluewaves3.svg") center left / cover no-repeat;
+  filter: brightness(0.7);
+
+  z-index: -1;
+  pointer-events: none;
 }
 
 .home {
+  margin-top: 5%;
   position: relative;
   height: 100%;
-  min-height: calc(100vh - 85px);
-  padding-top: 25px;
+}
+
+body .button-primary-style {
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
+  background: var(--primary-btn-bg-color);
+
+  box-shadow: 0 6px 20px var(--primary-btn-shadow-color);
+
+  transition: transform 150ms ease, box-shadow 200ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px var(--primary-btn-hover-shadow-color);
+  }
+
+  &:disabled {
+    background: var(--dark-bg-color);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.delete-btn {
+  background: var(--primary-btn-delete-bg-color) !important;
+  box-shadow: 0 6px 20px var(--primary-btn-delete-shadow-color);
+
+  &:hover {
+    box-shadow: 0 10px 25px var(--primary-btn-delete-hover-shadow-color);
+  }
+}
+
+.page-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mat-elevation-z8 {
+  background: var(--dark-bg-color);
+  border-radius: 14px;
+  padding: 16px;
+
+  border: 1px solid var(--primary-wrapper-border-color);
+
+  box-shadow:
+    0 10px 30px var(--primary-wrapper-shadow-color);
+  overflow-x: hidden;
+}
+
+.mat-elevation-z8::before {
+  content: '';
+  position: absolute;
+
+  background: var(--secondary-wrapper-bg-color);
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+.mat-expansion-panel {
+  position: relative;
+  background: var(--primary-panel-bg-color);
+  border-radius: 16px !important;
+  margin-bottom: 12px;
+
+  border: 1px solid var(--primary-wrapper-border-color);
+
+  box-shadow: 0 4px 12px var(--primary-wrapper-shadow-color);
+
+  transition:
+    transform 200ms ease,
+    box-shadow 250ms ease,
+    background 250ms ease;
+}
+
+// EXPANSION PANEL — STATES
+
+
+.mat-expansion-panel.mat-expanded {
+  background: var(--primary-panel-expended-bg-color);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(100, 180, 255, 0.15),
+    0 0 25px rgba(100, 180, 255, 0.08);
+
+  transform: translateY(-2px) scale(1.01);
+}
+
+
+// PANEL HEADER
+
+.mat-expansion-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  position: relative;
+}
+
+.mat-expansion-panel:hover {
+  filter: brightness(1.3);
+}
+
+.create-form-wrapper {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-wrapper-bg-color);
+    border-radius: 14px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  form mat-form-field {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.delete-btn {
+  color: white !important;
 }
 
 /* You can add global styles to this file, and also import other style files */
