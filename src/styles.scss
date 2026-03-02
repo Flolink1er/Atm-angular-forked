@@ -42,9 +42,9 @@ app-root {
   max-height: fit-content;
   display: block;
 
-  background: linear-gradient(120deg,
-      #071a2f 0%,
-      #020617 100%);
+  background: radial-gradient(circle at top left,
+      #0f1c2e,
+      #07111f 60%);
 }
 
 .home {

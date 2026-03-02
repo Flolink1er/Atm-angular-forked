@@ -6,10 +6,11 @@ import { CUSTOMERS } from '../../models/data/customers.mock';
 import { Customer } from '../../models/customers';
 import { MatCardModule } from '@angular/material/card';
 import { Card } from '../../models/card';
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @Component({
   selector: 'app-select-card',
-  imports: [MatButtonModule, MatDividerModule, MatIconModule, MatCardModule],
+  imports: [MatButtonModule, MatDividerModule, MatIconModule, MatCardModule, MatExpansionModule],
   templateUrl: './select-card.html',
   styleUrl: './select-card.scss',
 })

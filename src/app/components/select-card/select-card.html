@@ -1,34 +1,65 @@
 <h3>Veuillez selectionner une carte</h3>
+<div class="accordion-wrapper">
+  <mat-accordion multi="false">
 
-@for (customer of customers; track customer.fullname){
-<p>{{customer.fullname}}</p>
-@if (customer.cards.length === 0) {
-<div class="card-box empty-card">
-  <p>Aucune carte associée à ce client.</p>
-</div>
-}
-@else {
-@for(card of customer.cards; track card.cardNumber){
-<div class="card-box">
+    @for (customer of customers; track customer.fullname) {
 
-  <mat-card appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image logo"><img src="/{{card.cardBank}}.svg"
-          alt="{{card.cardBank}} logo">
+    <mat-expansion-panel>
+
+      <mat-expansion-panel-header>
+        <mat-panel-title class="customer-name">
+          {{ customer.fullname }}
+        </mat-panel-title>
+
+        <mat-panel-description>
+          <span class="card-count">{{ customer.cards.length }} {{ customer.cards.length === 1 ? 'carte' : 'cartes'
+            }}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+      @if (customer.cards.length === 0) {
+
+      <div class="card-box empty-card">
+        <p>Aucune carte associée à ce client.</p>
       </div>
-      <mat-card-title>{{card.cardBank}}</mat-card-title>
-      <mat-card-subtitle>{{card.cardType}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        {{card.cardNumber}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button matButton="outlined" (click)="chooseCard(card)">Choisir</button>
-    </mat-card-actions>
-  </mat-card>
+
+      } @else {
+
+      @for (card of customer.cards; track card.cardNumber) {
+
+      <div class="card-box">
+
+        <mat-card appearance="outlined" (click)="chooseCard(card)">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image logo">
+              <img src="/{{card.cardBank}}.svg" alt="{{card.cardBank}} logo">
+            </div>
+
+            <mat-card-title>
+              {{ card.cardBank }}
+            </mat-card-title>
+
+            <mat-card-subtitle>
+              {{ card.cardType }}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>{{ card.cardNumber }}</p>
+          </mat-card-content>
+
+        </mat-card>
+
+      </div>
+
+      }
+
+      }
+
+    </mat-expansion-panel>
+
+    }
+
+  </mat-accordion>
 </div>
-}
-}
-}
