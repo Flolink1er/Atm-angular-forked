@@ -46,7 +46,11 @@ export class ListScreen {
       this.customerList = [newUser];
     }else{
       let raw = JSON.parse(localStorage.getItem('customerList')!)
-      this.customerList = raw.map(Customer.fromJson);
+        this.customerList = raw.map((data: Customer) => {
+          const customer = Customer.fromJson(data);
+          customer.formatCards(customer.cards.map(Card.fromJson));
+          return customer;
+        });
       this.customerList!.push(newUser);
     }
 
